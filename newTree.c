@@ -72,10 +72,12 @@ struct Node* search(struct Node* root, int key) {
 
 void inorder(struct Node* root) {
     if (root == NULL) return;
-    inorder(root->right);
-    printf("%d ", root->key);
     inorder(root->left);
+    printf("%d ", root->key);
+    inorder(root->right);
 }
+
+
 
 void preorder(struct Node* root) {
     if (root == NULL) return;
@@ -108,22 +110,17 @@ void free_tree(struct Node* root) {
 */
 int main(void) {
     struct Node* root = NULL; // Empezamos con un árbol vacío
+    
 
-    // Insertar claves de ejemplo. El orden de inserción produce el siguiente árbol:
-    //         50
-    //        /  \
-    //      30    70
-    //     /  \  /  \
-    //   20  40 60  80
-
-    int keys[] = {50, 30, 70, 20, 40, 60, 80};
+    int keys[] = {60, 30, 90, 20, 40, 70, 100, 10, 25, 35, 50, 65, 80, 95, 110};
     size_t n = sizeof(keys) / sizeof(keys[0]);
     for (size_t i = 0; i < n; ++i) {
         root = insert(root, keys[i]);
     }
 
+
     // Mostrar recorridos
-    printf("Inorder (orden descendente): ");
+    printf("Inorder (orden ascendente): ");
     inorder(root);
     printf("\n");
 
@@ -137,7 +134,9 @@ int main(void) {
 
     // Buscar un valor existente y uno no existente
     int to_find1 = 60;
-    int to_find2 = 25;
+    int to_find2 = 15;
+    int to_find3 = 40;
+    int to_find4 = 45;
 
     struct Node* found1 = search(root, to_find1);
     if (found1 != NULL) {
@@ -151,6 +150,20 @@ int main(void) {
         printf("Clave %d encontrada en el árbol.\n", to_find2);
     } else {
         printf("Clave %d NO encontrada en el árbol.\n", to_find2);
+    }
+
+    struct Node* found3 = search(root, to_find3);
+    if (found3 != NULL) {
+        printf("Clave %d encontrada en el árbol.\n", to_find3);
+    } else {
+        printf("Clave %d NO encontrada en el árbol.\n", to_find3);
+    }
+
+    struct Node* found4 = search(root, to_find4);
+    if (found4 != NULL) {
+        printf("Clave %d encontrada en el árbol.\n", to_find4);
+    } else {
+        printf("Clave %d NO encontrada en el árbol.\n", to_find4);
     }
 
     // Liberar memoria
